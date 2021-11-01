@@ -1,0 +1,17 @@
+{
+  "name": "slashcommandshandler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^7.4.4",
+    "discord.js": "^13.2.0",
+    "enmap": "^5.8.7",
+    "node-gyp": "^8.3.0"
+  }
+}
