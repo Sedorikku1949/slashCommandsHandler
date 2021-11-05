@@ -8,7 +8,8 @@
   /* theme */
   --light-theme: rgb(73, 77, 97);;
   --main-theme: rgb(39,41,52);
-  --dark-theme: rgb(25, 26, 33);;
+  --dark-theme: rgb(25, 26, 33);
+  --button-theme: #5865F2;
 
   /* policiy */
   --main-policy: #BBBBBB;
@@ -16,12 +17,19 @@
   --dark-policy: #ABABAB;
 
   --background-secondary: #2f3136
-
 }
 
 div {
+  box-sizing: border-box;
+  border: 0px;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
   margin: 0px;
+  outline: 0px;
   padding: 0px;
+  vertical-align: baseline;
 }
 
 p { margin: 0px; padding: 0px; }
@@ -32,23 +40,152 @@ body {
   /* background */
   background: var(--main-theme);
   color: var(--main-policy);
-  font-family: 'Dongle', sans-serif;
   margin: 0px;
   padding: 0px;
   font-size: 30px;
+  font-family: 'Dongle', sans-serif;
 }
 
-.separation {
-  margin: 0px;
-  padding: 0px;
-  height: 10px;
-  background-color: var(--separation);
-}
+/* NAVBAR */
 
 .navbar {
-  height: 100px;
+  height: 105px;
   width: 100%;
   background: var(--dark-theme);
+  display: flex;
+  vertical-align: center;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.navbar .connect a {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--light-policy);
+}
+
+.navbar .connect button {
+  top: 25%;
+  margin: 10px;
+  min-height: 38px;
+  line-height: 22px;
+  padding-inline-end: 20px;
+  padding-inline-start: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  color: rgb(242, 244, 251);
+  border-radius: 8px;
+  transition: background-color 0.15s ease-out 0s, color, opacity, border;
+  outline: none;
+  text-decoration: none;
+  background: var(--button-theme);
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+}
+
+.navbar .avatar .box {
+  background-color: var(--main-theme);
+  margin: 10px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  text-align: center;
+}
+
+.navbar .avatar .box img {
+  height: 70px;
+  width: auto;
+  border-radius: 50%;
+  margin: 10px;
+  margin-right: 20px;
+}
+
+.navbar .avatar .box a {
+  text-decoration: none;
+  color: var(--dark-policy);
+  font-size: 35px;
+  margin-right: 20px;
+}
+
+.navBtu {
+  min-height: 38px;
+  padding-inline-start: 16px;
+  font-size: 40px;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  padding-inline-end: 8px;
+  color: var(--main-policy);
+  border-radius: 8px;
+  transition: background-color 0.15s ease-out 0s, color, opacity, border;
+  outline: none;
+  text-decoration: none;
+  background: transparent;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.navBar a {
+  font-size: 24px;
+}
+
+.navElm {
+  z-index: 10;
+  position: relative;
+  box-sizing: border-box;
+  border: 0px;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0px;
+  outline: 0px;
+  padding: 0px;
+  vertical-align: baseline;
+}
+
+.navBar .txt {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease-out 0s;
+}
+
+.navBar .txt svg {
+  margin-inline-start: 8px;
+  min-width: 20px;
+  position: relative;
+}
+
+/* SVG */
+
+svg {
+  width: 20;
+  height: 20;
+  fill: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
 }
 
 /* PROFILE */
@@ -121,6 +258,7 @@ body {
 
 /* CONTAINER */
 .container {
+  padding-top: 20px;
   background-color: var(--dark-theme);
   width: 100%;
   height: 100%;
@@ -171,4 +309,20 @@ body {
   border-radius: 10px;
 }
 
-/* BLOG */
+/* SCROLL BAR */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-theme);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--button-theme);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3640b4;
+}
