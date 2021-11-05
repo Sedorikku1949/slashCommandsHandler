@@ -2,10 +2,10 @@ const { readdirSync } = require("fs")
 const { color } = require("../../functions/Utils.js")
 
 class Commands extends Map {
-  constructor(path = "_interactions/cmd"){
+  constructor(path = "_interactions/buttons"){
     super()
     // folder scan
-    function getAllCommands(dir, that){
+    function getAllButtons(dir, that){
       readdirSync(dir).forEach((subdir) => {
         if (!subdir.match(/\./)) getAllCommands(`${dir}/${subdir}`)
         else if (subdir.endsWith(".js") && !subdir.startsWith(".")) {
@@ -14,8 +14,8 @@ class Commands extends Map {
         } else console.log(color(`{yellow}{ WARNING } >> The file ${subdir} as been ignored.`))
       })
     };
-    getAllCommands(path, this);
-    console.log(color(`{cyan}{ COMMANDS } >> ${this.size} commands has been loaded !`))
+    getAllButtons(path, this);
+    console.log(color(`{cyan}{ BUTTONS } >> ${this.size} buttons has been loaded !`))
   };
 
   array(){
@@ -23,6 +23,7 @@ class Commands extends Map {
     this.forEach((that) => res.push(that));
     return res;
   };
+  
   find(callback){  return this.array().find(callback) };
 }
 

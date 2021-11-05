@@ -34,3 +34,9 @@ Discord.RoleManager.prototype.select = function select(args){
   if (typeof args !== "string") return null;
   return this.cache.find((m) => m.id == args.replace(/\D+/g, '') || m.name.match(new RegExp(args.toLowerCase(), 'g')));
 }
+
+Number.prototype.shortNumber = function() {
+  const tab = ['y', 'z', 'e', 'p', 't', 'g', 'm', 'k']
+  for (let i = 24, y = 0; i > 0; i -= 3, y++) if (this >= 10 ** i) return (this / 10 ** i).toFixed((this / 10 ** i).toFixed(1).toString().includes('.0') ? 0 : 1) + tab[y].toUpperCase()
+  return this
+}

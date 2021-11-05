@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+
+* {
+  /* main color theme */
+  --red: #b14237;
+  --purple: #7252a3;
+
+  /* theme */
+  --light-theme: rgb(73, 77, 97);;
+  --main-theme: rgb(39,41,52);
+  --dark-theme: rgb(25, 26, 33);;
+
+  /* policiy */
+  --main-policy: #BBBBBB;
+  --light-policy: #F5F5F5;
+  --dark-policy: #ABABAB;
+
+  --background-secondary: #2f3136
+
+}
+
+div {
+  margin: 0px;
+  padding: 0px;
+}
+
+p { margin: 0px; padding: 0px; }
+h5 { margin: 0px; padding: 0px; }
+h1 { margin: 0px; padding: 0px; }
+
+body {
+  /* background */
+  background: var(--main-theme);
+  color: var(--main-policy);
+  font-family: 'Dongle', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  font-size: 30px;
+}
+
+.separation {
+  margin: 0px;
+  padding: 0px;
+  height: 10px;
+  background-color: var(--separation);
+}
+
+.navbar {
+  height: 100px;
+  width: 100%;
+  background: var(--dark-theme);
+}
+
+/* PROFILE */
+
+.profile {
+  display: flex;
+  height: 200px;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 100px 0px 100px;
+}
+
+.profile img {
+  position: -webkit-sticky;;
+  border-radius: 40px;
+  margin: 20px;
+  height: 140px;
+  width: auto;
+  box-shadow: 9px 9px 9px var(--dark-theme);
+}
+
+.profile h1 {
+  position: -webkit-sticky;
+  vertical-align: middle;
+  display: flex;
+}
+
+.profile div {
+  top: 10%;
+  vertical-align: middle;
+  position: relative;
+  align-items: center;
+}
+
+.profile div h1 {
+  margin: 0px;
+  top: 100%;
+  padding: 0px;
+}
+
+.profile div p {
+  margin: 0px;
+  top: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  display: block;
+  position: relative;
+  top: -40px;
+  padding-left: 20px;
+}
+
+/* STATS */
+.stats {
+  background-color: var(--light-theme);
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  vertical-align: middle;
+  display: flex;
+}
+
+.stats p {
+  font-size: 35px;
+  margin-left: 60px;
+  font-weight: 550;
+  padding: 10px;
+}
+
+/* CONTAINER */
+.container {
+  background-color: var(--dark-theme);
+  width: 100%;
+  height: 100%;
+}
+
+
+/* WHY KADY */
+.why-kady {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.why-kady .list .listBox {
+  background-color: var(--main-theme);
+  margin: 10px;
+  max-width: 75%;
+  height: 140px;
+  display: flex;
+  vertical-align: center;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.why-kady .list .listBox p {
+  position: relative;
+  margin-top: 40px;
+  padding: 0px;
+  line-height: 30px;
+  max-height: 100px;
+  padding-right: 15px;
+}
+
+.why-kady .list .listBox img {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 20px;
+}
+
+.why-kady .list .listBox span {
+  font-size: 20px;
+}
+
+.command {
+  background-color: var(--dark-theme);
+  font-size: 25px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 10px;
+}
+
+/* BLOG */

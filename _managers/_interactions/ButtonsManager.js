@@ -8,17 +8,27 @@ const { parse } = require("querystring");
  * @param {String} str 
  * @returns {Array}
  */
-function fetchArguments(str){ return Object.entries(parse(str)).map(elm => ({ key: elm[0], value: elm[1] }) ) }
+ function fetchArguments(str){ return Object.entries(parse(str)).map(elm => ({ key: elm[0], value: elm[1] }) ) }
 
 class ButtonManager {
   constructor(){
-    database.ButtonInteraction = this;
+    database.ButtonsManager = this;
     this.client = client;
     this.database = database;
   }
 
   async execute(interaction) {
-    if (!(interaction instanceof Discord.ButtonInteraction)) throw new Error("Invalid interaction has been provided !");
+    if (!(interaction instanceof Discord.ButtonInteraction)) throw new Error("The interaction is not a ButtonInteraction");
+    const btn = this.database.Buttons.find(b => interaction.customId.match(new RegExp(`${b.config.name}(?:&[^\s]+)?`, "gm")));
+    if (!btn) return;
+    try {
+      if (btn.config.defer) interaction.deferReply({ ephemeral: true })
+      const res = await btn.exec(interaction, fetchArguments(interaction.customId.slice(btn.config.name.length+1), ));
+      if (["string", "object"].some(t => typeof res == t) && !Array.isArray(res)) interaction.editReply(res).catch(() => false)
+    } catch(err) {
+      if (btn.config.defer) interaction.editReply(`:x: **An error as occured !**\n\`\`\`js\n${err.message.slice(0,1500)}\`\`\``).catch(() => false)
+      else  interaction.reply(`:x: **An error as occured !**\n\`\`\`js\n${err.message.slice(0,1500)}\`\`\``).catch(() => false)
+    }
   }
 }
 
