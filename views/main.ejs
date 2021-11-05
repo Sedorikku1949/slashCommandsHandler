@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <title><%= bot.user.username %>'s website</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icon.png">
   </head>
   <body>
     <div class="navbar">
       <div class="avatar">
         <div class="box">
-          <img src="<%= bot.user.displayAvatarURL({ size: 512, format: "png" }) %>"></img>
+          <img draggable="false" src="<%= bot.user.displayAvatarURL({ size: 512, format: "png" }) %>"></img>
           <a href="<%= inviteURL %>" target="_blank">Invite moi !</a>
         </div>
       </div>
@@ -29,7 +30,7 @@
       </div>
     </div>
     <div class="profile">
-      <img src="<%= bot.user.displayAvatarURL({ size: 512, format: "png" }) %>"></img>
+      <img draggable="false" src="<%= bot.user.displayAvatarURL({ size: 512, format: "png" }) %>"></img>
       <div>
         <h1><%= bot.user.tag %></h1>
         <p>Un des seuls bots créer par des fondateurs pour les fondateurs !</p>
@@ -45,26 +46,37 @@
         <h1>Pourquoi utiliser Kady ?</h1>
         <div class="list">
           <div class="security listBox">
-            <img src="img/security.png" width="100" height="100"></img>
+            <img draggable="false" src="img/security.png" width="100" height="100"></img>
             <p>Pas besoin de vous inquiétez de la sécurité, nous vous accompagnons dans la sécurisation de vos serveur, et nous travaillons beaucoup sur la sécurité de Kady !</p>
           </div>
           <div class="community listBox">
-            <img src="img/community.png" width="100" height="100"></img>
+            <img draggable="false" src="img/community.png" width="100" height="100"></img>
             <p>Vous cherchez un bot pour améliorer votre communautée ? Ça tombe bien ! Kady est faite pour ça. Bénéficiez d'une personnalisation totale et de beaucoup d'outils utiles, et évidemment, tout est mis à jour régulièrement !</p>
           </div>
           <div class="commands listBox">
-            <img src="img/cmd.png" width="100" height="100"></img>
+            <img draggable="false" src="img/cmd.png" width="100" height="100"></img>
             <p>Pas envie d'utiliser les commandes slashs ou pas l'habitude ? Pas d'inquiétude, Kady a été programmée pour permettre le support des deux ! Et ca, c'est le meilleure <span>😁</span></p>
           </div>
           <div class="ideas listBox">
-            <img src="img/idea.png" width="100" height="100"></img>
+            <img draggable="false" src="img/idea.png" width="100" height="100"></img>
             <p>Pas besoin de chercher pour contacter l'équipe de développement, il vous suffit de faire la commande <span class="command" style="font-size: 25px;">=support</span> et vous pourrez directement discuter avec les développeurs et graphistes !</p>
           </div>
         </div>
       </div>
-
+      <div class="separation">
+        <h1>Les derniers articles en dates :</h1>
+      </div>
       <div class="blog">
-        <!---->
+        <% news.forEach(async(elm) => { %>
+          <div class="newsBox">
+            <div class="title">
+              <img draggable="false" src="<%- elm.img %>"></img>
+              <h4><%- elm.name %></h4>
+            </div>
+            <p><%- elm.littleDesc %></p>
+            <a href="<%- elm.url%>">Lire l'article</a><img src="img/right-arrow.png" id="arrow"></img>
+          </div>
+        <% }) %>
       </div>
 
       blblblbl

@@ -36,6 +36,14 @@ p { margin: 0px; padding: 0px; }
 h5 { margin: 0px; padding: 0px; }
 h1 { margin: 0px; padding: 0px; }
 
+img {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
 body {
   /* background */
   background: var(--main-theme);
@@ -44,6 +52,12 @@ body {
   padding: 0px;
   font-size: 30px;
   font-family: 'Dongle', sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+   -khtml-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 /* NAVBAR */
@@ -325,4 +339,67 @@ svg:not(:root) {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #3640b4;
+}
+
+/* NEWS */
+
+.blog {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: center;
+}
+
+.newsBox {
+  max-width: 30%;
+  margin: 20px;
+  height: 300px;
+  background-color: var(--main-theme);
+  box-shadow: 7px 7px var(--light-theme);
+  color: var(--dark-policy);
+  padding: 20px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
+  border-radius: 30px;
+}
+
+.newsBox .title {
+  line-height: 25px;
+  display: flex;
+}
+
+.newsBox .title img {
+  height: 100px;
+  width: 100px;
+  margin: 20px;
+  border-radius: 20px;
+}
+
+.newsBox #arrow {
+  height: 20px;
+  position: relative;
+  top: 5px;
+  margin-left: 10px;
+}
+
+.newsBox a {
+  font-size: 25px;
+  text-decoration: none;
+  color: var(--light-policy)
+}
+
+.separation {
+  margin-top: 40px;
+  height: 100px;
+  width: 100%;
+  vertical-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  display: flex;
+  background-color: var(--light-theme);
+  font-size: 40px;
+  color: var(--dark-policy);
 }
