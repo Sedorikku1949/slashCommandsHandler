@@ -1,2 +1,7 @@
 _storage/config.json
 /node_modules/
+certificate.crt
+jwtRS256.key
+jwtRS256.key.pub
+private.pem
+ssl.key
