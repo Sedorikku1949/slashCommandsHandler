@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
-const { readdir } = require('fs');
+const { readdir, readFileSync, readdirSync } = require('fs');
 
 class Website {
 	constructor() {
@@ -16,6 +16,7 @@ class Website {
 			this._loadRoutes();
 			this._start();
 		} catch (e) {
+			console.log(e)
 			throw typeof e === 'object' ? e : new Error(e);
 		}
 	}
@@ -67,4 +68,4 @@ class Website {
 	}
 }
 
-module.exports = new Website();
+module.exports = new Website()

@@ -4,17 +4,19 @@ const { color } = require("../../functions/Utils.js")
 class Commands extends Map {
   constructor(path = "_interactions/cmd"){
     super()
+    const that = this;
     // folder scan
-    function getAllCommands(dir, that){
+    function getAllCommands(dir){
       readdirSync(dir).forEach((subdir) => {
-        if (!subdir.match(/\./)) getAllCommands(`${dir}/${subdir}`)
+        if (!subdir.match(/\./g)) getAllCommands(`${dir}/${subdir}`)
         else if (subdir.endsWith(".js") && !subdir.startsWith(".")) {
-          const cmd = require(`../../${dir}/${subdir}`)
+          let cmd = require(`../../${dir}/${subdir}`);
+          cmd.exec.bind(cmd);
           that.set(cmd.config.name, cmd)
         } else console.log(color(`{yellow}{ WARNING } >> The file ${subdir} as been ignored.`))
       })
     };
-    getAllCommands(path, this);
+    getAllCommands(path);
     console.log(color(`{cyan}{ COMMANDS } >> ${this.size} commands has been loaded !`))
   };
 

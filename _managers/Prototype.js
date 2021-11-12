@@ -10,15 +10,13 @@ Discord.GuildMember.prototype.isStaff = function isStaff(){
 
 Discord.GuildMemberManager.prototype.select = function select(args, options = { fetch: false, bot: false, user: false }){
   if (typeof args !== "string" || typeof options !== "object" || Array.isArray(options)) return null;
+  if (args.length < 1) return null;
   const guild = this.cache.find((m) => (options.bot ? true : !m.user.bot) && (m.id == args.replace(/\D+/g, '') || m.user.username.match(new RegExp(args.toLowerCase(), 'g')) || m.displayName.match(new RegExp(args.toLowerCase(), 'g')) || m.user.discriminator.match(new RegExp(args.toLowerCase(), ''), "g")));
   const callback = (m) => (options.bot ? true : !m.bot) && (m.id == args.replace(/\D+/g, '') || m.username.match(new RegExp(args.toLowerCase(), 'g')) || m.discriminator.match(new RegExp(args.toLowerCase(), "g")))
   const data = (options.fetch ?
     (options.user ? (guild?.user || this.client.users.cache.find(callback) || this.client.users.fetch(args.replace(/\D+/g, '')).catch(() => null) ) : (guild || this.client.users.cache.find(callback) || this.client.users.fetch(args.replace(/\D+/g, '')).catch(() => null) ))
     : (options.user ? guild?.user : guild));
-  return {
-    user: ((data instanceof Discord.User) ? data : (data?.user ? data?.user : null )),
-    member: ((data instanceof Discord.GuildMember) ? data : null)
-  }
+  return ((data instanceof Discord.User) ? data : (data?.user ? data?.user : null ))
 }
 
 Discord.GuildChannelManager.prototype.select = function select(args, options = { fetch: false, type: "GUILD_TEXT" }){
@@ -40,3 +38,6 @@ Number.prototype.shortNumber = function() {
   for (let i = 24, y = 0; i > 0; i -= 3, y++) if (this >= 10 ** i) return (this / 10 ** i).toFixed((this / 10 ** i).toFixed(1).toString().includes('.0') ? 0 : 1) + tab[y].toUpperCase()
   return this
 }
+
+Discord.Guild.prototype.registerCommands = function registerCommands(){ return database.SlashCommands.loadGuild(this); }
+Discord.AnonymousGuild.prototype.registerCommands = function registerCommands(){ return database.SlashCommands.loadGuild(this); }

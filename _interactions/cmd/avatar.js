@@ -1,5 +1,6 @@
 module.exports.exec = async function(author, channel, guild, memberPermission, options){
   const user = Array.isArray(options) && typeof options[0] == "object" ? options[0].user ?? author : author
+  if (!user && options[0]?.user) return ":x: ** ** **Je ne sais pas quel personne cherchée !**"
   return { embeds: [{
     description: `[ link ](${user.displayAvatarURL({ format: "png", size: 2048, dynamic: true })})`,
     image: { url: user.displayAvatarURL({ format: "png", size: 2048, dynamic: true }) }

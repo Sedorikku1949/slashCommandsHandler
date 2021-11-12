@@ -1,12 +1,12 @@
 {
   "name": "slashcommandshandler",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
-  "main": "app.js",
+  "main": "null",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Sedorriku",
   "license": "ISC",
   "dependencies": {
     "better-sqlite3": "^7.4.4",

@@ -5,16 +5,18 @@ class Commands extends Map {
   constructor(path = "_interactions/buttons"){
     super()
     // folder scan
-    function getAllButtons(dir, that){
+    const that = this;
+    function getAllButtons(dir){
       readdirSync(dir).forEach((subdir) => {
         if (!subdir.match(/\./)) getAllCommands(`${dir}/${subdir}`)
         else if (subdir.endsWith(".js") && !subdir.startsWith(".")) {
           const cmd = require(`../../${dir}/${subdir}`)
+          cmd.exe.bind(cmd);
           that.set(cmd.config.name, cmd)
         } else console.log(color(`{yellow}{ WARNING } >> The file ${subdir} as been ignored.`))
       })
     };
-    getAllButtons(path, this);
+    getAllButtons(path);
     console.log(color(`{cyan}{ BUTTONS } >> ${this.size} buttons has been loaded !`))
   };
 
