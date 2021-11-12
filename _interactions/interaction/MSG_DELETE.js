@@ -11,6 +11,7 @@ module.exports = {
       bot: 'NONE'
     },
     args: [],
+    type: "BUTTON",
     description: 'Deletes the message that triggered the button.',
     hidden: true
   }
