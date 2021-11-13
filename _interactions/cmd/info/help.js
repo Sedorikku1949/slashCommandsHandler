@@ -14,7 +14,7 @@ module.exports.exec = async function(author, channel, guild, memberPermission, o
     }],
     components: [
       {
-        // BUTTONS
+        // BUTTONS 
         components: [
           { disabled: false, emoji: "885157955270488084", label: "", style: 2, type: 2, custom_id: `HELP_REDO&ctg=${actualCtg}` }
         ],
