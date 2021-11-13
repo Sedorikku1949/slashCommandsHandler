@@ -1,6 +1,6 @@
 module.exports = {
   resolveOptions: (message, content, cmdOptions) => {
-    if (!cmdOptions[0].full) {
+    if (!cmdOptions[0]?.full) {
       console.log("not full")
       const args = content.trim().split(/\s+/g).filter((elm, index) => cmdOptions[index]);
       const res = args.map((cnt, index) => {

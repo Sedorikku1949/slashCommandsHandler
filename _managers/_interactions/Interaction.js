@@ -11,7 +11,8 @@ class Commands extends Map {
         if (!subdir.match(/\./)) getAllCommands(`${dir}/${subdir}`)
         else if (subdir.endsWith(".js") && !subdir.startsWith(".")) {
           const cmd = require(`../../${dir}/${subdir}`)
-          cmd.exe.bind(cmd);
+          if (!cmd || typeof cmd?.exec !== "function") return;
+          cmd.exec.bind(cmd);
           that.set(cmd.config.name, cmd)
         } else console.log(color(`{yellow}{ WARNING } >> The file ${subdir} as been ignored.`))
       })
