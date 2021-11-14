@@ -9,6 +9,7 @@
   "author": "Sedorriku",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^16.11.7",
     "better-sqlite3": "^7.4.4",
     "btoa": "^1.2.1",
     "discord.js": "^13.3.1",

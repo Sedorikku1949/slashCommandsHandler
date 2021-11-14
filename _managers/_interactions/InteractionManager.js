@@ -26,13 +26,14 @@ class InteractionManager {
 
   async execute(interaction) {
     if (!(interaction instanceof Discord.Interaction)) throw new Error("The interaction is not a ButtonInteraction");
-    const int = this.database.Interactions.find(b => interaction.customId.match(new RegExp(`${b.config.name}(?:&[^\s]+)?`, "gm")) && getType(interaction) == b.config.type);
+    const int = this.database.Interactions.array().find(b => interaction.customId.match(new RegExp(`${b.config.name}(?:&[^\s]+)?`, "gi")) && getType(interaction) == b.config.type);
     if (!int) return;
     try {
-      if (int.config.defer) interaction.deferReply({ ephemeral: true })
+      if (int.config.defer) await interaction.deferReply({ ephemeral: true })
       const res = await int.exec(interaction, fetchArguments(interaction.customId.slice(int.config.name.length+1), ));
-      if (["string", "object"].some(t => typeof res == t) && !Array.isArray(res)) interaction.editReply(res).catch(() => false)
+      if (["string", "object"].some(t => typeof res == t) && !Array.isArray(res)) interaction.editReply(res);
     } catch(err) {
+      console.log(err);
       if (int.config.defer) interaction.editReply(`:x: **An error as occured !**\n\`\`\`js\n${err.message.slice(0,1500)}\`\`\``).catch(() => false)
       else  interaction.reply(`:x: **An error as occured !**\n\`\`\`js\n${err.message.slice(0,1500)}\`\`\``).catch(() => false)
     }

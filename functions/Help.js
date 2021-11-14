@@ -25,19 +25,29 @@ module.exports = {
     if (typeof actualCategory !== "string") throw new Error("Invalid actual category was provided, cannot generate category string list");
     let str = "";
     ctg.forEach((c, index) => {
-      console.log("index ", index + 1)
-      console.log("actualCategory ", ctg.length)
       const sep = ((index + 1) == ctg.length) ? "" : " / ";
       str += (c === actualCategory) ? `[ ${c} ]${sep}` : `${c}${sep}`;
     });
     return str;
   },
   generateCommandStringList: function generateCommandStringList(cmds, noCommandTxt = "Aucune commande."){
-    console.log(cmds)
     if (!Array.isArray(cmds)) throw new Error("Invalid commands was provided, cannot generate command string list");
     return `\`\`\`\n${cmds.length > 0 ? "⇒ " : noCommandTxt}${cmds.map(c => c.config.name).join("\n⇒ ")}\n\`\`\``
   },
   sendSpecificCommandHelp: function sendSpecificCommandHelp(cmd, guild){
-    return ({ embeds: [{ title: "test" }] })
+    return ({
+      embeds: [{
+        author: { name: client.user.tag, icon_url: client.user.displayAvatarURL({ size: 512, format: "png" }) },
+        title: `Aide de la commande "${cmd.config.name}" :`,
+        color: "#5865F2",
+        fields: [
+          { name: "Aliase :", value: "```\n"+(cmd.config.aliases?.length > 0 ? cmd.config.aliases.join(", ") : "Aucun aliase.")+"```", inline: true },
+          { name: "Catégorie :", value: "```\n"+(cmd.config.category ?? "...")+"```", inline: true },
+          { name: "Description :", value: "```\n"+(cmd.config.description ?? "...")+"```", inline: false },
+          { name: "Utilisation :", value: "```\n"+(cmd.config.usage ?? "...")+"```", inline: false },
+        ]
+      }],
+      ephemeral: true,
+    })
   }
 }

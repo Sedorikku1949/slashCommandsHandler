@@ -6,9 +6,9 @@ class Commands extends Map {
     super()
     // folder scan
     const that = this;
-    function getAllButtons(dir){
+    function getAllInteractions(dir){
       readdirSync(dir).forEach((subdir) => {
-        if (!subdir.match(/\./)) getAllCommands(`${dir}/${subdir}`)
+        if (!subdir.match(/\./)) getAllInteractions(`${dir}/${subdir}`)
         else if (subdir.endsWith(".js") && !subdir.startsWith(".")) {
           const cmd = require(`../../${dir}/${subdir}`)
           if (!cmd || typeof cmd?.exec !== "function") return;
@@ -17,7 +17,7 @@ class Commands extends Map {
         } else console.log(color(`{yellow}{ WARNING } >> The file ${subdir} as been ignored.`))
       })
     };
-    getAllButtons(path);
+    getAllInteractions(path);
     console.log(color(`{cyan}{ BUTTONS } >> ${this.size} interactions has been loaded !`))
   };
 

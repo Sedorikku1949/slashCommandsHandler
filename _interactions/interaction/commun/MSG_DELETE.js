@@ -1,5 +1,8 @@
 module.exports = {
-  exec: async function(button, args) {},
+  exec: async function(interaction, args) {
+    console.log(args)
+    interaction.message?.delete().catch(() => false)
+  },
   config: {
     name: "MSG_DELETE",
     defer: false,

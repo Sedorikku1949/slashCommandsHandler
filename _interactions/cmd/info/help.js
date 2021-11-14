@@ -13,10 +13,14 @@ module.exports.exec = async function(author, channel, guild, memberPermission, o
       thumbnail: { url: client.user.displayAvatarURL({ size: 2048, format: "png" }) },
     }],
     components: [
+      { components: [ { type: 'SELECT_MENU', customId: `HELP_CTG_MENU&ctg=${actualCtg}`, placeholder: 'Quel catégorie souhaite-tu voir ?', options: [...Help.getAllCategory(database.commands.array()).map((c) => ({ label: c, customId: `HELP_CTG_SELECT&ctg=${c}`, value: c, default: false }) )] } ], type: 'ACTION_ROW' },
       {
         // BUTTONS 
         components: [
-          { disabled: false, emoji: "885157955270488084", label: "", style: 2, type: 2, custom_id: `HELP_REDO&ctg=${actualCtg}` }
+          { disabled: false, emoji: "885157955241115698", label: "", style: 2, type: 2, custom_id: `HELP_UNDO&ctg=${actualCtg}&user=${author.id}` },
+          { disabled: false, emoji: "885157955459235870", label: "", style: 2, type: 2, custom_id: `HELP_REDO&ctg=${actualCtg}&user=${author.id}` },
+          { disabled: false, emoji: "885157955182428220", label: "", style: 2, type: 2, custom_id: `HELP_SEARCH&ctg=${actualCtg}&user=${author.id}` },
+          { disabled: false, emoji: "885157955270488084", label: "", style: 2, type: 2, custom_id: `MSG_DELETE&ctg=${actualCtg}&user=${author.id}` },
         ],
         type: 1
       }
@@ -35,7 +39,7 @@ module.exports.config = {
     userPermission: [],
     staff: false,
     dev: false,
-    inProgress: false,-
+    inProgress: false,
     isUserCommand: false
   },
   lang: null,

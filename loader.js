@@ -2,6 +2,11 @@ const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
 const { readdir, readFileSync, readdirSync } = require('fs');
+const https = require('https');
+const httpsOptions = {
+	key: readFileSync('./certs/cert.key'),
+	cert: readFileSync('./certs/cert.pem')
+}
 
 class Website {
 	constructor() {
@@ -60,10 +65,12 @@ class Website {
 
 	_start() {
 		try {
-			this.app.listen(this.app.get('port'));
+			/*this.server = https.createServer(httpsOptions, this.app);
+			this.server.listen(this.app.get('port'), () => {})*/
+			this.app.listen(this.app.get("port"), () => {})
 			console.log(`Application lancée sur le port ::${this.app.get('port')}::`);
-		} catch (e) {
-			throw new Error(e);
+		} catch (err) {
+			console.log(err)
 		}
 	}
 }

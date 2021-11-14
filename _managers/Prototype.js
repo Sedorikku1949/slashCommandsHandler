@@ -41,3 +41,14 @@ Number.prototype.shortNumber = function() {
 
 Discord.Guild.prototype.registerCommands = function registerCommands(){ return database.SlashCommands.loadGuild(this); }
 Discord.AnonymousGuild.prototype.registerCommands = function registerCommands(){ return database.SlashCommands.loadGuild(this); }
+
+const translateArgs = (txt) => txt.replace(/\$[0-9]/g, (match, p1) => args[p1] || match)
+
+Discord.Guild.prototype.translate = function(key, ...args){ 
+  if (!key || typeof key !== "string") return 'ERROR';
+  const obj = database.Language.find(database.guilds.get(this.id, "lang") ?? "fr", key);
+  if (!obj) return 'ERROR';
+  if (Array.isArray(obj)) { return key.map((e) => translateArgs(e)); }
+  else if (typeof obj == "string") return translateArgs(obj)
+  else return translateArgs(obj)
+}
