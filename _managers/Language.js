@@ -1,5 +1,5 @@
 const { readdirSync } = require('fs');
-const { getGoodPath } = require('../functions/Utils');
+const { getObjPath } = require('../functions/Utils');
 
 class Language extends Map {
   constructor(){
@@ -17,10 +17,10 @@ class Language extends Map {
 
   find(file, key){
     if (typeof file !== "string" || !this.get(file)) return null;
-    const data = this.get(file);
+    let data = this.get(file);
     try {
       if (!key) return data;
-      getGoodPath(key).forEach((p) => data[path]);
+      getObjPath(key).forEach((p) => data = data[p]);
       return data;
     } catch(err) { return null; }
   };

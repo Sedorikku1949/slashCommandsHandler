@@ -1,1 +1,18 @@
-{}
+{
+  "test": { "embeds": [{ "color": "2c2f33", "title": "Salut !", "description": "$1 as rejoint le serveur grâce à $2 !"}] },
+  "name": "Francais",
+  "acronym": "fr",
+  "color": {
+    "primary": "#E12323"
+  },
+  "misc": {
+    "help": {
+      "noAliase": "Aucun aliase.",
+      "footerName": "Page $1/$2",
+      "category": { "fun": "Fun", "dev": "Dev", "info": "Info", "user": "User", "sommaire": "Sommaire" },
+      "specificCommand": "Aide de la commande \"$1\" :",
+      "fields": { "aliase": "Aliase :", "ctg": "Catégorie :", "desc": "Description :", "use": "Utilisation :" },
+      "noCommands": { "default": "Aucune commande n'est disponible pour cette catégorie." }
+    }
+  }
+}

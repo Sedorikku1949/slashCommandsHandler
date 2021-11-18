@@ -7,9 +7,9 @@ function reg(res){
 
 module.exports.exec = async function(author, channel, guild, memberPermission, options){
   if (!database.config.dev.evalAccess) return { content: "<:close:884084000744939571> ** ** **Cette commande est réservée aux développeurs !", ephemeral: true }
-  if (!options || !options[0] || !options[0].value) return;
+  if (!options || !options[0]) return;
   try {
-    const res = await eval(options.map(e => e.value).join(" "));
+    const res = await eval(options.join(" "));
     const str = typeof res == "string" ? res : inspect(res, true, 0);
     return { content: "**`SUCCESS`**\n```js\n"+((reg(str).slice(0,1970)) ?? "\u200b")+"\n```", components: [{ components: [{ disabled: false, emoji: "885157955270488084", label: "", style: 2, type: 2, custom_id: "MSG_DELETE&id="+author.id }], type: 1 }] }
   } catch(err) {

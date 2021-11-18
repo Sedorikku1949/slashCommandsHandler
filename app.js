@@ -26,4 +26,6 @@ new (require("./_managers/_interactions/InteractionManager.js"))()
 // LOGIN
 client.login(require("./_storage/config.json").token)
 
+client.prefix = "."
+
 module.exports = client;

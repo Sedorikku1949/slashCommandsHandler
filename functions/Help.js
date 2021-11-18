@@ -1,11 +1,24 @@
+function generateSommaireList(){
+  return getAllCategory(database.commands.array()).map((c) => ({ config: { name: c } }) );
+}
+
+function getAllCategory(arr){
+  let ctg = [];
+  arr.forEach(function(item){
+    if (!ctg.includes(item.config.category)) ctg.push(item.config.category);
+  });
+  return ["sommaire", ...ctg];
+}
+
+function getCategoryCommands(commands, ctg){
+  console.log(ctg)
+  if (!Array.isArray(commands) || typeof ctg !== "string") throw new Error("Invalid arrays was provided, cannot sort commands with categories provided");
+  if (ctg == "sommaire") return [...generateSommaireList()];
+  return [...commands.filter(cmd => cmd.config.category === ctg)];
+}
+
 module.exports = {
-  getAllCategory: function getAllCategory(arr){
-    let ctg = [];
-    arr.forEach(function(item){
-      if (!ctg.includes(item.config.category)) ctg.push(item.config.category);
-    });
-    return ctg;
-  },
+  getAllCategory: getAllCategory,
   sortCommand: function sortCommand(commands, ctg){
     if (!Array.isArray(commands) || !Array.isArray(ctg)) throw new Error("Invalid arrays was provided, cannot sort commands with categories provided");
     let obj = {};
@@ -16,35 +29,28 @@ module.exports = {
     });
     return obj;
   },
-  getCategoryCommands: function getCategoryCommands(commands, ctg){
-    if (!Array.isArray(commands) || typeof ctg !== "string") throw new Error("Invalid arrays was provided, cannot sort commands with categories provided");
-    return [...commands.filter(cmd => cmd.config.category === ctg)];
-  },
+  getCategoryCommands: getCategoryCommands,
   generateCategoryStringList: function generateCategoryStringList(ctg, actualCategory){
     if (!Array.isArray(ctg) || ctg.some(c => typeof c !== "string")) throw new Error("Invalid categories was provided, cannot generate category string list");
     if (typeof actualCategory !== "string") throw new Error("Invalid actual category was provided, cannot generate category string list");
-    let str = "";
-    ctg.forEach((c, index) => {
-      const sep = ((index + 1) == ctg.length) ? "" : " / ";
-      str += (c === actualCategory) ? `[ ${c} ]${sep}` : `${c}${sep}`;
-    });
-    return str;
+    const goto = ctg.indexOf(actualCategory) + 1;
+    return ctg.map((t, i, arr)=>(goto===1&&i===2?false:i>goto) || (goto===arr.length&&i===arr.length-3?false:i<goto-2)?((goto===arr.length?i===goto-4:i===goto-3)?`(+${i+1})`:(goto===1?i===goto+2:i===goto+1)?`(+${arr.length-(i)})`:false):i+1===goto?`**__${t}__**`:`\`${t}\``).filter(Boolean).join(" - ")
   },
-  generateCommandStringList: function generateCommandStringList(cmds, noCommandTxt = "Aucune commande."){
+  generateCommandStringList: function generateCommandStringList(cmds, ctg, noCommandTxt = "Aucune commande."){
     if (!Array.isArray(cmds)) throw new Error("Invalid commands was provided, cannot generate command string list");
-    return `\`\`\`\n${cmds.length > 0 ? "⇒ " : noCommandTxt}${cmds.map(c => c.config.name).join("\n⇒ ")}\n\`\`\``
+    return `\`\`\`js\n${cmds.length > 0 ? "" : noCommandTxt}${cmds.map((c, index) => (index+1)+". "+c.config.name).join("\n")}\n\`\`\``
   },
   sendSpecificCommandHelp: function sendSpecificCommandHelp(cmd, guild){
     return ({
       embeds: [{
         author: { name: client.user.tag, icon_url: client.user.displayAvatarURL({ size: 512, format: "png" }) },
-        title: `Aide de la commande "${cmd.config.name}" :`,
-        color: "#5865F2",
+        title: guild.translate("misc.help.specificCommand", cmd.config.name),
+        color: guild.translate("color.primary"),
         fields: [
-          { name: "Aliase :", value: "```\n"+(cmd.config.aliases?.length > 0 ? cmd.config.aliases.join(", ") : "Aucun aliase.")+"```", inline: true },
-          { name: "Catégorie :", value: "```\n"+(cmd.config.category ?? "...")+"```", inline: true },
-          { name: "Description :", value: "```\n"+(cmd.config.description ?? "...")+"```", inline: false },
-          { name: "Utilisation :", value: "```\n"+(cmd.config.usage ?? "...")+"```", inline: false },
+          { name: guild.translate("misc.help.fields.aliase"), value: "```\n"+(cmd.config.aliases?.length > 0 ? cmd.config.aliases.join(", ") : "Aucun aliase.")+"```", inline: true },
+          { name: guild.translate("misc.help.fields.ctg"), value: "```\n"+(cmd.config.category ?? "...")+"```", inline: true },
+          { name: guild.translate("misc.help.fields.desc"), value: "```\n"+(cmd.config.description ?? "...")+"```", inline: false },
+          { name: guild.translate("misc.help.fields.use"), value: "```\n"+(cmd.config.usage ?? "...")+"```", inline: false },
         ]
       }],
       ephemeral: true,

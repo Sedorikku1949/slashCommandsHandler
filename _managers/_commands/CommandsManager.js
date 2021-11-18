@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-const { resolveOptions } = require("../../functions/Managers.js");
+const { resolveOptions, getArgs } = require("../../functions/Managers.js");
 
 class CommandsHandler {
   constructor(){
@@ -23,9 +23,10 @@ class CommandsHandler {
     // execute
     try {
       if (command.config.defer && (type instanceof Discord.CommandInteraction)) await type.deferReply({ ephemeral: command.config.ephemeral ?? false})
-      const res = await command.exec(...args, ((type instanceof Discord.Message) ?
-        resolveOptions(type, type.content.trim().slice(actionDetail.name.length + actionDetail.prefix.length).trim(), command.config.options)
-        : type.options.data));
+      if (type instanceof Discord.Message) type.channel.sendTyping();
+      //console.log(getArgs(type, client.prefix.length))
+      const res = await command.exec(...args, getArgs(type, client.prefix.length))
+      //console.log(res)
       if (["string", "object"].some(t => typeof res == t) && !Array.isArray(res)) {  
         if (command.config.defer && (type instanceof Discord.CommandInteraction)) type.editReply(res)
         else type.reply(res)

@@ -2,7 +2,6 @@ const Help = require("../../../functions/Help.js");
 
 module.exports = {
   exec: async function (interaction, args) {
-    console.log(args);
     return {
       content: "> **Quel est la commande que tu recherche ?**",
       ephemeral: true,

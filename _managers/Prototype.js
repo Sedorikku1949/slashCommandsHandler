@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 
+const { isObject } = require("../functions/Utils");
+
 Discord.GuildMember.prototype.isStaff = function isStaff(){
   return database.guilds.get(this.guild.id)?.moderation?.staffRoles?.length > 0
     ? database.guilds
@@ -42,13 +44,24 @@ Number.prototype.shortNumber = function() {
 Discord.Guild.prototype.registerCommands = function registerCommands(){ return database.SlashCommands.loadGuild(this); }
 Discord.AnonymousGuild.prototype.registerCommands = function registerCommands(){ return database.SlashCommands.loadGuild(this); }
 
-const translateArgs = (txt) => txt.replace(/\$[0-9]/g, (match, p1) => args[p1] || match)
+const translateArgs = (txt, ...args) => txt.replace(/\$[1-9]+/g, (match, p1) => args[Number(match.replace(/[^0-9]/g, ""))-1]);
+
+function notAstring(obj, ...args){
+  if (typeof obj == "string") return translateArgs(obj, ...args);
+  else if (Array.isArray(obj)) {
+    return obj.map((elm) => notAstring(elm, ...args));
+  }
+  else if (isObject(obj)) {
+    const data = {};
+    Object.entries(obj).forEach((elm) => data[elm[0]] = notAstring(elm[1], ...args));
+    return data;
+  } else return obj;
+}
 
 Discord.Guild.prototype.translate = function(key, ...args){ 
   if (!key || typeof key !== "string") return 'ERROR';
-  const obj = database.Language.find(database.guilds.get(this.id, "lang") ?? "fr", key);
-  if (!obj) return 'ERROR';
-  if (Array.isArray(obj)) { return key.map((e) => translateArgs(e)); }
-  else if (typeof obj == "string") return translateArgs(obj)
-  else return translateArgs(obj)
+  const obj = database.Language.find(database.guilds.get(this.id)?.lang ?? "fr", key);
+  return notAstring(obj, ...args);
 }
+
+Discord.Guild.prototype.getLanguage = function getLanguage(){ return database.guilds.get(this.id)?.lang ?? "fr"; };
