@@ -5,6 +5,7 @@ module.exports.exec = async function(author, channel, guild, memberPermission, o
   if (options[0]?.value) return help.sendSpecificCommandHelp(cmd, guild);
   const allCtg = Help.getAllCategory(database.commands.array());
   const actualCtg = allCtg[0];
+  if (options[0]) return (cmd ? help.sendSpecificCommandHelp(cmd, guild) : { content: "> **Aucune commande n'a été trouvée**", ephemeral: true });
   return ({
     embeds: [{
       color: database.Language.find(guild.getLanguage(), "color.primary"),

@@ -65,3 +65,49 @@ Discord.Guild.prototype.translate = function(key, ...args){
 }
 
 Discord.Guild.prototype.getLanguage = function getLanguage(){ return database.guilds.get(this.id)?.lang ?? "fr"; };
+
+const { getPixels } = require("../functions/Img.js")
+
+Array.prototype.rgbToHex = function() {
+  function componentToHex(c) {
+      var hex = c.toString(16);
+      return hex.length == 1 ? "0" + hex : hex;
+  }
+  return "#"+this.map(t=>componentToHex(t)).join("")
+}
+Array.prototype.rgbToHsl = function() {
+  let [r,g,b]=this
+  r /= 255; g /= 255; b /= 255;
+  var max = Math.max(r, g, b), min = Math.min(r, g, b);
+  var h, s, l = (max + min) / 2;
+
+  if (max == min) {
+    h = s = 0; // achromatic
+  } else {
+    var d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+
+  return [ Math.round(h * 360), Math.round(s*100), Math.round(l*100) ]
+}
+String.prototype.averageColor = async function(format="rgb"){
+  let arr = []
+  const pixels = await getPixels(this.toString())
+  for (let i=0, len=pixels.data.length; i<len; i+=200) {
+      arr.push([pixels.data[i + 0],pixels.data[i + 1],pixels.data[i + 2]])
+  }
+  const rgb = arr.reduce((a,t)=>a.map((y,ind)=>y+t[ind])).map(t=>Math.trunc(t/(pixels.data.length/200)))
+  if(format === "hex"){
+      return rgb.rgbToHex()
+  }else if(format === "rgb"){
+      return rgb
+  }else if(format === "hsl"){
+      return rgb.rgbToHsl()
+  }
+}
