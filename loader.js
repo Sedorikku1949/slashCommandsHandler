@@ -2,19 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
 const { readdir, readFileSync, readdirSync } = require('fs');
-const https = require('https');
-const httpsOptions = {
-	key: readFileSync('./certs/cert.key'),
-	cert: readFileSync('./certs/cert.pem')
-}
 
 class Website {
 	constructor() {
 		this.app = express();
 		this.config = require("./_storage/config.json");
-		this.config.callbackURL = this.config.callbackURL = this.config.bot.production
-			? `${this.config.bot.url}/auth/login`
-			: `${this.config.bot.url}:${this.config.app.port}/auth/login`;
+		this.config.callbackURL = `http://${this.config.bot.url}:${this.config.app.port}/auth/login`;
+		console.log(this.config.callbackURL)
 		this.bot = require('./app.js');
 		try {
 			this._setup();
@@ -30,10 +24,12 @@ class Website {
 		this.app.set('views', 'views');
 		this.app.set('view engine', 'ejs');
 		this.app.use(express.static('public'));
-		this.app.set('port', this.config.app.port || 3000);
-		this.app.use(morgan('dev'));
+		this.app.set('port', this.config.app.port || 49287);
+		this.app.use(morgan("short"));
+		this.app.disable('x-powered-by');
+		this.app.set('trust proxy', 1) // trust first proxy
 		this.app.use(session({
-			secret: `ey.${Date.now()}${this.config.bot.id}${Date.now()}.dashboard.io`,
+			secret: `ey.${Date.now()}${this.config.bot.id}${Date.now()}.kady.ddns.net`,
 			resave: false,
 			saveUninitialized: false
 		}));

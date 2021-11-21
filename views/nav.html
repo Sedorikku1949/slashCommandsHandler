@@ -1,0 +1,21 @@
+<div class="navbar">
+  <div class="avatar">
+    <div class="box">
+      <img draggable="false" src="<%= bot.user.displayAvatarURL({ size: 512, format: "png" }) %>"></img>
+      <a href="<%= inviteURL %>" target="_blank">Invite moi !</a>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="docu navElm">
+      <a class="navBtu" href="/wiki" targer="_blank">Wiki</a>
+      <a class="navBtu" href="https://discord.gg/GegJXchAfN" targer="_blank">Support</a>
+      <a class="navBtu" href="/guilds" targer="_blank">Gérer mon serveur</a>
+      <a class="navBtu" href="/ardis" targer="_blank">Ardis</a>
+      <a class="navBtu" href="/news" targer="_blank">News</a>
+      <a class="navBtu" href="/team" targer="_blank">Equipe</a>
+    </div>
+  </div>
+  <div class="connect">
+    <button type="button" class="connect" href="<%= is_logged ? "/profile" : "/auth/login" %></button>"><a href="<%= is_logged ? "/guilds" : "/auth/login" %>"><%= is_logged ? "Mes serveurs" : "Reconnecte toi" %></a></button>
+  </div>
+</div>

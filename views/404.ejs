@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Oups</title>
+  </head>
+  <body>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+
+      img {
+        width: 1000px;
+      }
+
+      body {
+        /* background */
+        background: var(--main-theme);
+        color: var(--main-policy);
+        margin: 0px;
+        padding: 0px;
+        font-size: 30px;
+        font-family: 'Dongle', sans-serif;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+         -khtml-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+      }
+
+      h2 {
+        font-size: 50px;
+        text-align: center;
+      }
+
+      a {
+        text-decoration: none;
+        color:brown;
+      }
+    </style>
+    <div style="display: flex;">
+      <img src="ills/PNG/12.png">
+      <p style="top: 35%; left: 50%; position: absolute; font-size: 60px; font-weight: 900;">404 not found</p>
+    </div>
+    <h2>Oups, je n'ai pas trouvé ce que tu cherchais, je te propose de revenir à la page d'accueil <a href="<%= url %>">ici</a></h2>
+  </body>
+</html>

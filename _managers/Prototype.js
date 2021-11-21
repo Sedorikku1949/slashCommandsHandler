@@ -13,8 +13,9 @@ Discord.GuildMember.prototype.isStaff = function isStaff(){
 Discord.GuildMemberManager.prototype.select = function select(args, options = { fetch: false, bot: false, user: false }){
   if (typeof args !== "string" || typeof options !== "object" || Array.isArray(options)) return null;
   if (args.length < 1) return null;
-  const guild = this.cache.find((m) => (options.bot ? true : !m.user.bot) && (m.id == args.replace(/\D+/g, '') || m.user.username.match(new RegExp(args.toLowerCase(), 'g')) || m.displayName.match(new RegExp(args.toLowerCase(), 'g')) || m.user.discriminator.match(new RegExp(args.toLowerCase(), ''), "g")));
-  const callback = (m) => (options.bot ? true : !m.bot) && (m.id == args.replace(/\D+/g, '') || m.username.match(new RegExp(args.toLowerCase(), 'g')) || m.discriminator.match(new RegExp(args.toLowerCase(), "g")))
+  const guild = this.cache.find((m) => (options.bot ? true : !m.user.bot) && (m.id == args.replace(/\D+/g, '') || m.user.username.toLowerCase().match(new RegExp(args.toLowerCase(), 'g')) || m.displayName.toLowerCase().match(new RegExp(args.toLowerCase(), 'g')) || m.user.discriminator.match(new RegExp(args.toLowerCase(), ''), "g")));
+  const callback = (m) => (options.bot ? true : !m.bot) && (m.id == args.replace(/\D+/g, '') || m.username.toLowerCase().match(new RegExp(args.toLowerCase(), 'g')) || m.discriminator.toLowerCase().match(new RegExp(args.toLowerCase(), "g")))
+  console.log(guild)
   const data = (options.fetch ?
     (options.user ? (guild?.user || this.client.users.cache.find(callback) || this.client.users.fetch(args.replace(/\D+/g, '')).catch(() => null) ) : (guild || this.client.users.cache.find(callback) || this.client.users.fetch(args.replace(/\D+/g, '')).catch(() => null) ))
     : (options.user ? guild?.user : guild));

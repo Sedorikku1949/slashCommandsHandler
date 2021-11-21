@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-module.exports.Router = class Home extends Router {
+module.exports.Router = class Main extends Router {
 	constructor() {
 		super();
 		this.get('/', function(req, res) {

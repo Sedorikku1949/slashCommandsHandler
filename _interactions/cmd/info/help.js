@@ -1,11 +1,10 @@
 const Help = require("../../../functions/Help.js")
 
 module.exports.exec = async function(author, channel, guild, memberPermission, options){
-  const cmd = database.commands.array().find(cmd => cmd.config.name == options[0]?.value || cmd.config.aliase?.includes(options[0]?.value))
-  if (options[0]?.value) return help.sendSpecificCommandHelp(cmd, guild);
+  const cmd = database.commands.array().find(cmd => cmd.config.name == options[0] || cmd.config.aliase?.includes(options[0]))
   const allCtg = Help.getAllCategory(database.commands.array());
   const actualCtg = allCtg[0];
-  if (options[0]) return (cmd ? help.sendSpecificCommandHelp(cmd, guild) : { content: "> **Aucune commande n'a été trouvée**", ephemeral: true });
+  if (options[0]) return (cmd ? Help.sendSpecificCommandHelp(cmd, guild) : { content: "> **Aucune commande n'a été trouvée**", ephemeral: true });
   return ({
     embeds: [{
       color: database.Language.find(guild.getLanguage(), "color.primary"),
@@ -42,7 +41,8 @@ module.exports.config = {
     staff: false,
     dev: false,
     inProgress: false,
-    isUserCommand: false
+    isUserCommand: false,
+    isSlashCommand: true
   },
   lang: null,
   path: null

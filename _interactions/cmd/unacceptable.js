@@ -12,7 +12,8 @@ module.exports.config = {
     staff: false,
     dev: false,
     inProgress: false,
-    isUserCommand: false
+    isUserCommand: false,
+    isSlashCommand: false
   },
   lang: null,
   path: null

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title><%= user.username %>'s profile</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Kady Development Team">
+    <meta name="description" content="Kady is a Discord bot that helps you to manage your server.">
+    <meta name="keywords" content="Kady, Discord, bot, server, management, help">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="shortcut icon" href="img/defaultWallpaper" type="image/jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= iconURL %>>">
+     <!-- Notifications -->
+     <link rel="stylesheet" href="css/notif.css" >
+     <script src="https://unpkg.com/simple-notifications-solution/dist/Notifications.js"></script>
+     <script src="js/notif.js"></script>
+     <!-- Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="avatar">
+        <div class="box">
+          <img draggable="false" src="<%= bot.user.displayAvatarURL({ size: 512, format: "png" }) %>"></img>
+          <a href="<%= inviteURL %>" target="_blank">Invite moi !</a>
+        </div>
+      </div>
+      <div class="nav">
+        <div class="docu navElm">
+          <a class="navBtu" href="/wiki" targer="_blank">Wiki</a>
+          <a class="navBtu" href="https://discord.gg/GegJXchAfN" targer="_blank">Support</a>
+          <a class="navBtu" href="/guild" targer="_blank">Gérer mon serveur</a>
+          <a class="navBtu" href="/ardis" targer="_blank">Ardis</a>
+          <a class="navBtu" href="/news" targer="_blank">News</a>
+          <a class="navBtu" href="/team" targer="_blank">Equipe</a>
+        </div>
+      </div>
+      <div class="connect">
+        <button type="button" class="connect" href="<%= is_logged ? "/profile" : "/auth/login" %></button>"><a href="<%= is_logged ? "/guilds" : "/auth/login" %>"><%= is_logged ? "Mes serveurs" : "Reconnecte toi" %></a></button>
+      </div>
+    </div>
+    <div class="premium">Supporte Kady et bénéficie d'avantages en faisant un don, tu auras un magnifique badge premium !</div>
+    <div class="profile">
+      <div class="png" style="background-image: url(<%= banner %>)">
+        <div class="avatar" style="background-image: url(<%= avatarURL %>); height: 256px; width: 256px;"></div>
+        <h2><%= user.username ?? "ERROR" %>#<%= user.discriminator ?? "0000" %></h2>
+        <p class="bio">Personnalise ta biographie avec la commande "bio"</p>
+      </div>
+    </div>
+    <div class="temp">
+      <p>Des nouveautés pour personnaliser ton profile arrivent.</p>
+    </div>
+  </body>
+</html>

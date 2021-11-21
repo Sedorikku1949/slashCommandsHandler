@@ -7,6 +7,7 @@ class SlashCommands {
   loadAllCommands(){
     this.client.guilds.cache.forEach(async (guild) => {
       this.commands.array().forEach((cmd) => {
+        if (!cmd?.config?.system?.isSlashCommand) return;
         guild.commands.create({
           name: cmd.config.name.toLowerCase(),
           type: 1,
@@ -18,6 +19,7 @@ class SlashCommands {
   };
   loadGuild(guild){
     this.commands.forEach((cmd) => {
+      if (!cmd?.config?.system?.isSlashCommand) return;
       guild.commands.create({
         name: cmd.config.name.toLowerCase(),
         type: 1,

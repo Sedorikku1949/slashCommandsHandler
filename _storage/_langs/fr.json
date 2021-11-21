@@ -3,7 +3,8 @@
   "name": "Francais",
   "acronym": "fr",
   "color": {
-    "primary": "#E12323"
+    "primary": "#E12323",
+    "secondary": "#50afcb"
   },
   "misc": {
     "help": {
@@ -13,6 +14,16 @@
       "specificCommand": "Aide de la commande \"$1\" :",
       "fields": { "aliase": "Aliase :", "ctg": "Catégorie :", "desc": "Description :", "use": "Utilisation :" },
       "noCommands": { "default": "Aucune commande n'est disponible pour cette catégorie." }
+    }
+  },
+  "commands": {
+    "avatar": {
+      "aliase": ["pp"],
+      "desc": "Cette commande permet d'avoir l'avatar de quelqu'un !",
+      "use": "$1avatar (user ?)",
+      "assets": { 
+        "embeds": [{ "color": "$3", "description": "> **Avatar de [$1]($2)**", "image": { "url": "$2" }, "footer": { "text": "Couleur moyenne: $3"} }]
+      }
     }
   }
 }

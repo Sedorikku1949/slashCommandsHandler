@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= bot.user.username %>'s website</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Kady Development Team">
+    <meta name="description" content="Kady is a Discord bot that helps you to manage your server.">
+    <meta name="keywords" content="Kady, Discord, bot, server, management, help">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/guilds.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icon.png">
+    <!-- Notifications -->
+    <link rel="stylesheet" href="css/notif.css" >
+    <script src="https://unpkg.com/simple-notifications-solution/dist/Notifications.js"></script>
+    <script src="js/notif.js"></script>
+    <!-- Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="avatar">
+        <div class="box">
+          <img draggable="false" src="<%= bot.user.displayAvatarURL({ size: 512, format: "png" }) %>"></img>
+          <a href="<%= inviteURL %>" target="_blank">Invite moi !</a>
+        </div>
+      </div>
+      <div class="nav">
+        <div class="docu navElm">
+          <a class="navBtu" href="/wiki" targer="_blank">Wiki</a>
+          <a class="navBtu" href="https://discord.gg/GegJXchAfN" targer="_blank">Support</a>
+          <a class="navBtu" href="/ardis" targer="_blank">Ardis</a>
+          <a class="navBtu" href="/news" targer="_blank">News</a>
+          <a class="navBtu" href="/team" targer="_blank">Equipe</a>
+        </div>
+      </div>
+      <div class="connect">
+        <button type="button" class="connect" href="<%= is_logged ? "/profile" : "/auth/login" %></button>"><a href="<%= is_logged ? "/profile" : "/auth/login" %>"><%= is_logged ? "Mon profile" : "Reconnecte toi" %></a></button>
+      </div>
+    </div>
+    <center>
+      <div class="guild-container">
+        <div class="serv-container">
+          <% guilds.forEach((guild) => { %>
+            <div title="<%= guild.name %>">
+              <a href="/guilds/<%= guild.id %>">
+              <% if (guild.icon) { %>
+                <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png?size=2048" width="200px" height="200px" class="guild-icon" />
+              <% } else { %>
+                <canvas class="guild-icon" id="<%= guild.name.replace(/\w+/g, name => name[0]).replace(/\s/g, '') %>" width="200px" height="200px"></canvas>
+                <script>
+                  function createIcone() {
+                    const nameAcronym = document.getElementById("<%= guild.name.replace(/\w+/g, name => name[0]).replace(/\s/g, '')  %>").getContext('2d');
+                    nameAcronym.font = '30px Arial';
+                    nameAcronym.textAlign = "center";
+                    nameAcronym.fillStyle = "white";
+                    nameAcronym.fillText("<%= guild.name.replace(/\w+/g, name => name[0]).replace(/\s/g, '')  %>", 35, 44);
+                  }
+                  createIcone();
+                </script>
+              <%}%>
+              </a>
+            </div>
+          <%});%>
+        </div>
+      </div>
+      <h2>Tu ne vois pas un serveur ? Soit sur d'avoir les permission de gérer le serveur !</h2>
+    </center>
+  </body>
+</html>
+
+<!-- http://localhost:49287/ -->
