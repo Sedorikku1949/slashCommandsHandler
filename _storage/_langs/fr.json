@@ -2,6 +2,7 @@
   "test": { "embeds": [{ "color": "2c2f33", "title": "Salut !", "description": "$1 as rejoint le serveur grâce à $2 !"}] },
   "name": "Francais",
   "acronym": "fr",
+  "inviteLink": "https://discord.com/api/oauth2/authorize?client_id=858766319506554899&permissions=8&redirect_uri=http%3A%2F%2Fkady.ddns.net&response_type=code&scope=bot%20applications.commands%20guilds%20identify",
   "color": {
     "primary": "#E12323",
     "secondary": "#50afcb"
@@ -14,15 +15,84 @@
       "specificCommand": "Aide de la commande \"$1\" :",
       "fields": { "aliase": "Aliase :", "ctg": "Catégorie :", "desc": "Description :", "use": "Utilisation :" },
       "noCommands": { "default": "Aucune commande n'est disponible pour cette catégorie." }
+    },
+    "category": {
+      "dev": "developpement",
+      "user": "utilisateur",
+      "mod": "modération",
+      "info": "information",
+      "util": "outils",
+      "config": "configuration"
     }
   },
   "commands": {
     "avatar": {
-      "aliase": ["pp"],
       "desc": "Cette commande permet d'avoir l'avatar de quelqu'un !",
       "use": "$1avatar (user ?)",
-      "assets": { 
-        "embeds": [{ "color": "$3", "description": "> **Avatar de [$1]($2)**", "image": { "url": "$2" }, "footer": { "text": "Couleur moyenne: $3"} }]
+      "assets": { "embeds": [{ "color": "$3", "description": "> **Avatar de [$1]($2)**", "image": { "url": "$2" }, "footer": { "text": "Couleur moyenne: $3"} }] },
+      "misc": {}
+    },
+    "roleinfo": {
+      "desc": "Cette commande te permet d'avoir des informations sur un rôle.",
+      "use": "$1roleinfo <role>",
+      "assets": {
+        "noRole": { "content": "> **Aucun role n'a été trouvé**", "ephemeral": true },
+        "response": {
+          "embeds": [{
+            "author": { "name": "Kady" },
+            "description": "**Informations sur <@&$1> :**\n\n**Couleur :** ** ** $2\n**Identifiant :** `$1`\n**Mentionnable :** ** ** $4\n**Position :** ** ** `$5e`\n**Tags :** ** ** `$6`\n**Membres avec ce rôle :** `$9`\n\n__Autre :__\n**Permissions :** ** ** `$7`\n**Gérer :** ** ** $8",
+            "color" :"$2",
+            "thumbnails": { "url": "$3" }
+          }]
+        }
+      },
+      "misc": {
+        "noTags": "Aucun tags"
+      }
+    },
+    "invite": {
+      "desc": "Invite moi maintenant !",
+      "use": "Aucun argument requis.",
+      "assets": {
+        "content": "> **Invite moi maintenant !**",
+        "components": [{
+          "type": 1,
+          "components": [{ "disabled": false, "label": "Clique ici pour m'inviter", "style": 5, "type": 2, "url": "https://discord.com/api/oauth2/authorize?client_id=858766319506554899&permissions=8&redirect_uri=http%3A%2F%2Fkady.ddns.net&response_type=code&scope=bot%20applications.commands%20guilds%20identify" }]
+        }]
+      }
+    },
+    "bot": {
+      "desc": "Cette commande te permet d'avoir des informations sur moi.",
+      "use": "Aucun argument requis.",
+      "assets": {
+        "default": {
+          "embeds": [{
+            "color": "#9498ae",
+            "author": { "name": "Kady", "icon_url": "$1" },
+            "title": "Quelques informations sur moi :",
+            "description": "**Mes développeurs :** Sedorikku#0001 & little evil thing#8291\n**Mon Hébergement :** [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)\n\n> Je suis sur `$3` serveurs pour un total de `$4` utilisateurs sur `$5` salons !\n\n__**Dépendances :**__\n- NPM : `$7`\n- NodeJS : `$6`\n- Discord.js : `$8`\n\n**Je suis en ligne depuis le `$9`** ( <t:$10:R> )"
+          }],
+          "components": [{
+            "type": 1,
+            "components": [
+              { "label": "M'inviter", "url": "https://discord.com/oauth2/authorize?client_id=858766319506554899&permissions=8&scope=applications.commands%20bot", "type": 2, "disabled": false, "style": 5 },
+              { "label": "Mon dashboard", "url": "http://kady.ddns.net", "type": 2, "disabled": false, "style": 5 },
+              { "label": "Ma documentation", "url": "http://kady.ddns./wiki", "type": 2, "disabled": false, "style": 5 },
+              { "label": "Mon support", "url": "https://discord.gg/UYgdRRYs7P", "type": 2, "disabled": false, "style": 5 }
+            ]
+          }]
+        }
+      }
+    },
+    "ping": {
+      "desc": "Cette commande te permet d'avoir ma latence !",
+      "use": "Aucun argument requis.",
+      "assets": "> 🏓 **J'ai une latence de $1ms, c'est $2**",
+      "misc": {
+        "1": "excellent",
+        "2": "bien",
+        "3": "limite",
+        "4": "horrible !"
       }
     }
   }

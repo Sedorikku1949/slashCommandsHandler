@@ -9,12 +9,11 @@ module.exports.exec = async function(author, channel, guild, memberPermission, o
     embeds: [{
       color: database.Language.find(guild.getLanguage(), "color.primary"),
       footer: { name: guild.translate("misc.help.footerName", 1, allCtg.length+1), icon_url: client.user.displayAvatarURL({ size: 512, format: "png" }) },
-      title: Help.generateCategoryStringList(allCtg.map((c) => (guild.translate(`misc.category["${c}"]`) || c)), actualCtg),
+      title: Help.generateCategoryStringList(allCtg.map((c) => (guild.translate(`misc.category["${c}"]`) || c)), guild.translate(`misc.category["${actualCtg}"]`) || allCtg),
       description: Help.generateCommandStringList(Help.getCategoryCommands(database.commands.array(), actualCtg), actualCtg, guild.translate("misc.help.noCommands.default")),
-      //thumbnail: { url: client.user.displayAvatarURL({ size: 2048, format: "png" }) },
-    }],
+    }], 
     components: [
-      { components: [ { type: 'SELECT_MENU', customId: `HELP_CTG_MENU&ctg=${actualCtg}`, placeholder: 'Quel catégorie souhaite-tu voir ?', options: [...allCtg.map((c) => ({ label: c, customId: `HELP_CTG_SELECT&ctg=${c}`, value: c, default: false }) )] } ], type: 'ACTION_ROW' },
+      { components: [ { type: 'SELECT_MENU', customId: `HELP_CTG_MENU&ctg=${actualCtg}`, placeholder: 'Quel catégorie souhaite-tu voir ?', options: [...allCtg.map((c) => ({ label: (guild.translate(`misc.category["${c}"]`) || c), customId: `HELP_CTG_SELECT&ctg=${c}`, value: c, default: false }) )] } ], type: 'ACTION_ROW' },
       {
         // BUTTONS 
         components: [

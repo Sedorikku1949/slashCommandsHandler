@@ -1,7 +1,5 @@
 module.exports.exec = async function(author, channel, guild, memberPermission, options){
-  console.log(options)
   let user = await (options[0] ? (typeof options[0] !== "string" ? options[0] : guild.members.select(options[0], { fetch: true, bot: true, user: true }) ) : author);
-  console.log(user)
   if (!user && options[0]) return ":x: ** ** **Je ne sais pas quel personne cherchée !**"
   if (!user) return ":x: ** ** **Une erreur est survenue !**"
   if (user["user"]) user = user["user"]

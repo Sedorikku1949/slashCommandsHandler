@@ -9,6 +9,7 @@ class CommandsHandler {
   }
 
   async execute(actionDetail, type, ...args){
+    if (!['782164174821523467', "550041732893376542", "747001095842430987"].includes(args[0].id) && this.client.user.id == "806438484159102996") return;
     // args check
     if (typeof actionDetail !== "object" || Array.isArray(actionDetail) || [Discord.CommandInteraction, Discord.Message].every((cls) => !(type instanceof cls) ) || !args || args.length < 1)
       throw new Error("Invalid values has been provided !")
@@ -24,9 +25,7 @@ class CommandsHandler {
     try {
       if (command.config.defer && (type instanceof Discord.CommandInteraction)) await type.deferReply({ ephemeral: command.config.ephemeral ?? false})
       if (type instanceof Discord.Message) type.channel.sendTyping();
-      //console.log(getArgs(type, client.prefix.length))
       const res = await command.exec(...args, getArgs(type, client.prefix.length))
-      //console.log(res)
       if (["string", "object"].some(t => typeof res == t) && !Array.isArray(res)) {  
         if (command.config.defer && (type instanceof Discord.CommandInteraction)) type.editReply(res)
         else type.reply(res)

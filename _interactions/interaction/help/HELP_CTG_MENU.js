@@ -10,13 +10,12 @@ module.exports = {
       embeds: [{
         color: database.Language.find(interaction.guild.getLanguage(), "color.primary"),
         title: "Help",
-        title: Help.generateCategoryStringList(Help.getAllCategory(database.commands.array()), newCategory),
+        title: Help.generateCategoryStringList(allCtg.map((c) => (interaction.guild.translate(`misc.category["${c}"]`) || c)), interaction.guild.translate(`misc.category["${newCategory}"]`) || newCategory),
         description: Help.generateCommandStringList(Help.getCategoryCommands(database.commands.array(), newCategory)),
         author: { name: "Liste des commandes", icon_url: client.user.displayAvatarURL({ size: 512, format: "png" }) },
-        thumbnail: { url: client.user.displayAvatarURL({ size: 2048, format: "png" }) },
       }],
       components: [
-        { components: [ { type: 'SELECT_MENU', customId: `HELP_CTG_MENU&ctg=${newCategory}`, placeholder: 'Quel catégorie souhaite-tu voir ?', options: [...Help.getAllCategory(database.commands.array()).map((c) => ({ label: c, customId: `HELP_CTG_SELECT&ctg=${c}`, value: c, default: false }) )] } ], type: 'ACTION_ROW' },
+        { components: [ { type: 'SELECT_MENU', customId: `HELP_CTG_MENU&ctg=${newCategory}`, placeholder: 'Quel catégorie souhaite-tu voir ?', options: [...Help.getAllCategory(database.commands.array()).map((c) => ({ label: (interaction.guild.translate(`misc.category["${c}"]`) || c), description: c == newCategory ? "selected" : "", customId: `HELP_CTG_SELECT&ctg=${c}`, value: c, default: false }) )] } ], type: 'ACTION_ROW' },
         {
           // BUTTONS 
           components: [

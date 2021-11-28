@@ -9,7 +9,7 @@ class Database {
     this.system = new Enmap({ dataDir: "_storage/_database/_system", name: "system" });
     this.guilds = new Enmap({ dataDir: "_storage/_database/guilds", name: "guilds" });
     this.Interactions = new (require("./_interactions/Interaction.js"))();
-    this.Language = require("./Language.js")
+    this.Language = require("./Language.js");
   }
 };
 

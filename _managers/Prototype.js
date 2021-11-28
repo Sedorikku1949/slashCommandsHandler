@@ -45,7 +45,7 @@ Number.prototype.shortNumber = function() {
 Discord.Guild.prototype.registerCommands = function registerCommands(){ return database.SlashCommands.loadGuild(this); }
 Discord.AnonymousGuild.prototype.registerCommands = function registerCommands(){ return database.SlashCommands.loadGuild(this); }
 
-const translateArgs = (txt, ...args) => txt.replace(/\$[1-9]+/g, (match, p1) => args[Number(match.replace(/[^0-9]/g, ""))-1]);
+const translateArgs = (txt, ...args) => txt.replace(/\$[1-9](?:[0-9]+)?/g, (match, p1) => args[Number(match.replace(/[^\d]+/g, ""))-1]);
 
 function notAstring(obj, ...args){
   if (typeof obj == "string") return translateArgs(obj, ...args);
@@ -62,10 +62,12 @@ function notAstring(obj, ...args){
 Discord.Guild.prototype.translate = function(key, ...args){ 
   if (!key || typeof key !== "string") return 'ERROR';
   const obj = database.Language.find(database.guilds.get(this.id)?.lang ?? "fr", key);
+  if (args.length < 1) return obj;
   return notAstring(obj, ...args);
 }
 
 Discord.Guild.prototype.getLanguage = function getLanguage(){ return database.guilds.get(this.id)?.lang ?? "fr"; };
+Discord.Guild.prototype.getPrefix = function getPrefix(){ return database.guilds.get(this.id)?.prefix ?? "="; };
 
 const { getPixels } = require("../functions/Img.js")
 

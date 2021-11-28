@@ -1,6 +1,6 @@
 module.exports = {
   exec: async function(interaction, args) {
-    console.log(args)
+    if (args[0].key == "id" && interaction.user.id !== args[0].value) return;
     interaction.message?.delete().catch(() => false)
   },
   config: {

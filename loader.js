@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const { readdir, readFileSync, readdirSync } = require('fs');
 
 class Website {
@@ -33,7 +34,8 @@ class Website {
 			resave: false,
 			saveUninitialized: false
 		}));
-		this.app.use(express.json());
+		this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(bodyParser.json())
 		this.app.use(express.urlencoded({ extended: false }));
 		this.app.use((req, res, next) => {
 			res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');

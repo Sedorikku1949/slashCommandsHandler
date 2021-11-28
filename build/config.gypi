@@ -345,6 +345,7 @@
     "want_separate_host_toolset": 0,
     "nodedir": "C:\\Users\\CEDRIC2005\\AppData\\Local\\node-gyp\\Cache\\16.12.0",
     "standalone_static_library": 1,
-    "msbuild_path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\MSBuild.exe"
+    "msbuild_path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\MSBuild.exe",
+    "GTK_Root": "C:GTK"
   }
 }
